@@ -45,12 +45,15 @@ with compare_tab:
                      hover_data={"page": True, "quote": True, "company": False},
                      labels={"value": f"{metric} ({unit})", "company": ""})
         fig.update_layout(showlegend=False, height=420)
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width="stretch")
         st.caption(f"All values: {data['fy']}, {data['basis'].lower()}, unit = {unit}. Page = PDF page of the annual report.")
         if not sub["verified"].all():
             st.warning("Some values are not yet hand-verified.")
-        st.dataframe(sub[["company", "value", "unit", "page", "quote", "verified"]], hide_index=True,
-                     use_container_width=True)
+        if "definition" in sub and sub["definition"].nunique() > 1:
+            st.info("Definitions differ between companies, so compare with care: "
+                    + "; ".join(f"**{r['company']}**: {r['definition']}" for _, r in sub.iterrows()))
+        cols = [c for c in ["company", "value", "unit", "page", "quote", "definition", "verified"] if c in sub]
+        st.dataframe(sub[cols], hide_index=True, width="stretch")
         for _, r in sub.iterrows():
             if r["page"]:
                 show_page(r["company"], int(r["page"]), key=f"m-{r['company']}-{metric}")
@@ -59,7 +62,18 @@ with compare_tab:
 with ask_tab:
     from src.answer import answer
 
-    q = st.text_input("Ask a question about the three annual reports",
+    examples = [
+        "What was HCLTech's EBIT margin in FY2023-24?",
+        "How many employees did Wipro have as of March 31, 2024?",
+        "Compare the attrition of Wipro and HCLTech in FY2023-24.",
+        "What will Wipro's share price be next year?",
+    ]
+    st.caption("Try an example:")
+    for col, ex in zip(st.columns(len(examples)), examples):
+        if col.button(ex, width="stretch"):
+            st.session_state["q"] = ex
+
+    q = st.text_input("Ask a question about the three annual reports", key="q",
                       placeholder="e.g. What was the attrition rate at Wipro in FY2023-24?")
     if q:
         with st.spinner("Searching the reports..."):

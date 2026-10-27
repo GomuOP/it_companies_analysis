@@ -5,16 +5,29 @@ Quick test: python -m src.answer "What was Wipro attrition in FY2023-24?"
 """
 import json
 import sys
+import time
+from functools import lru_cache
 
-from .config import GEMINI_API_KEY, GEMINI_MODEL, MIN_SCORE, NOT_FOUND
+from .config import (GEMINI_API_KEY, GEMINI_MODEL, GEMINI_FALLBACK_MODELS, GEMINI_TIMEOUT_S,
+                     MIN_SCORE, NOT_FOUND)
 from .retrieve import search
 
-PROMPT = """You answer questions about company annual reports using ONLY the context below.
+PROMPT = """You answer questions about the FY2023-24 annual reports of Tech Mahindra, Wipro and HCLTech
+using ONLY the context below.
 Rules:
 - Use only facts stated in the context. Do not use outside knowledge.
 - If the context does not contain the answer, set "found" to false.
-- Every claim must cite the chunk id(s) it came from.
-- Keep numbers, units and fiscal years exactly as written in the context.
+- If the question asks about a different company or a different fiscal year than the context covers,
+  set "found" to false. Do not substitute another year's or another company's figure.
+- Predictions, opinions and investment advice are not in the reports: set "found" to false.
+- Every claim must cite the chunk id(s) it came from. Each chunk header shows its company; never attribute
+  a figure to a company other than the one in that chunk's header.
+- Keep numbers, units and fiscal years exactly as written in the context. Do not convert units or compute
+  new figures. Say "consolidated" or "standalone" when the context says which one it is.
+- For comparisons, state each company's value separately, each with its own citation. If the companies
+  report in different units, you may convert to one unit (1 crore = 10 million) but also show the original
+  figure as written, e.g. "₹897,603 million (≈ ₹89,760 crore)".
+- Put chunk ids ONLY in the "citations" list, never inside the "answer" text.
 
 Return JSON only:
 {{"found": true|false, "answer": "<short answer>", "citations": ["<chunk id>", ...]}}
@@ -26,22 +39,34 @@ Question: {question}
 """
 
 
+@lru_cache(maxsize=1)
 def _client():
+    # Kept alive for the process: google-genai closes the HTTP client when the Client object is garbage-collected
     from google import genai
-    return genai.Client(api_key=GEMINI_API_KEY)
+    from google.genai import types
+    return genai.Client(api_key=GEMINI_API_KEY, http_options=types.HttpOptions(timeout=GEMINI_TIMEOUT_S * 1000))
 
 
 def call_gemini(prompt: str) -> dict:
+    """Main model first; on overload / rate limit / timeout retry once, then try the fallback models."""
     from google.genai import types
-    resp = _client().models.generate_content(
-        model=GEMINI_MODEL,
-        contents=prompt,
-        config=types.GenerateContentConfig(temperature=0, response_mime_type="application/json"),
-    )
-    try:
-        return json.loads(resp.text)
-    except (json.JSONDecodeError, TypeError):
-        return {"found": False, "answer": "", "citations": [], "error": "bad JSON from LLM"}
+    config = types.GenerateContentConfig(temperature=0, response_mime_type="application/json")
+    last_error = None
+    for model in [GEMINI_MODEL, *GEMINI_FALLBACK_MODELS]:
+        for attempt in range(2):
+            try:
+                resp = _client().models.generate_content(model=model, contents=prompt, config=config)
+            except Exception as e:  # 503 overloaded, 429 rate limit, timeouts, network errors
+                last_error = f"{model}: {str(e)[:120]}"
+                if "429" in str(e):  # quota used up: retrying the same model only wastes time
+                    break
+                time.sleep(2 * (attempt + 1))
+                continue
+            try:
+                return {**json.loads(resp.text), "model": model}
+            except (json.JSONDecodeError, TypeError):
+                return {"found": False, "answer": "", "citations": [], "error": "bad JSON from LLM"}
+    return {"found": False, "answer": "", "citations": [], "error": f"LLM unavailable ({last_error})"}
 
 
 def not_found(reason, chunks):
@@ -60,6 +85,8 @@ def answer(question: str) -> dict:
     out = call_gemini(PROMPT.format(context=context, question=question))
 
     # Refusal 2: LLM says the context does not answer it
+    if out.get("error"):
+        return not_found(f"LLM error: {out['error']}", chunks)
     if not out.get("found"):
         return not_found("LLM: answer not in retrieved context", chunks)
 

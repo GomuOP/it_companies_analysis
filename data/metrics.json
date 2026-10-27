@@ -1,22 +1,22 @@
 {
-  "_note": "Hand-verified values only. Fill from scripts/propose_metrics.py output AFTER checking each page in the PDF. Set verified=true once checked.",
+  "_note": "Hand-verified values only (source: data/key_facts.md, checked against the PDF pages). Set verified=true once checked.",
   "fy": "FY2023-24",
   "basis": "Consolidated",
   "metrics": [
-    {"company": "TechMahindra", "metric": "Revenue", "value": null, "unit": "INR crore", "page": null, "quote": "", "verified": false},
-    {"company": "Wipro",        "metric": "Revenue", "value": null, "unit": "INR crore", "page": null, "quote": "", "verified": false},
-    {"company": "HCLTech",      "metric": "Revenue", "value": null, "unit": "INR crore", "page": null, "quote": "", "verified": false},
+    {"company": "TechMahindra", "metric": "Revenue", "value": 51996, "unit": "INR crore", "page": 26, "quote": "We ended the FY24 with a revenue of ₹51,996 Cr (US$ 6,277 Mn)", "verified": true, "definition": "Consolidated revenue"},
+    {"company": "Wipro",        "metric": "Revenue", "value": 89760.3, "unit": "INR crore", "page": 90, "quote": "On a consolidated basis, your Company's sales decreased to ₹897,603 Million for the current year", "verified": true, "definition": "Consolidated revenue from operations; reported as ₹897,603 Mn, shown here as ₹ crore (÷10). The p. 23 highlights show ₹897,943 Mn, which is segment revenue incl. exchange-rate impact"},
+    {"company": "HCLTech",      "metric": "Revenue", "value": 109913, "unit": "INR crore", "page": 62, "quote": "We recorded a consolidated revenue of ₹109,913 crores, marking an 8.3% increase over FY23.", "verified": true, "definition": "Consolidated revenue"},
 
-    {"company": "TechMahindra", "metric": "Operating margin", "value": null, "unit": "%", "page": null, "quote": "", "verified": false},
-    {"company": "Wipro",        "metric": "Operating margin", "value": null, "unit": "%", "page": null, "quote": "", "verified": false},
-    {"company": "HCLTech",      "metric": "Operating margin", "value": null, "unit": "%", "page": null, "quote": "", "verified": false},
+    {"company": "TechMahindra", "metric": "Operating margin", "value": 6.1, "unit": "%", "page": 8, "quote": "₹519,955 Mn Revenue from operations; ₹31,475 Mn EBIT", "verified": true, "definition": "EBIT margin, computed as 31,475 / 519,955 (not stated as a % in the report)"},
+    {"company": "Wipro",        "metric": "Operating margin", "value": 16.1, "unit": "%", "page": 22, "quote": "IT Services Operating Margin (%) ... 16.1 FY24", "verified": true, "definition": "IT Services segment operating margin (IFRS)"},
+    {"company": "HCLTech",      "metric": "Operating margin", "value": 18.2, "unit": "%", "page": 7, "quote": "our EBIT margin for the year was 18.2%", "verified": true, "definition": "EBIT margin"},
 
-    {"company": "TechMahindra", "metric": "Headcount", "value": null, "unit": "employees", "page": null, "quote": "", "verified": false},
-    {"company": "Wipro",        "metric": "Headcount", "value": null, "unit": "employees", "page": null, "quote": "", "verified": false},
-    {"company": "HCLTech",      "metric": "Headcount", "value": null, "unit": "employees", "page": null, "quote": "", "verified": false},
+    {"company": "TechMahindra", "metric": "Headcount", "value": 145455, "unit": "employees", "page": 8, "quote": "145,455 Employees", "verified": true, "definition": "Total headcount as on 31 March 2024"},
+    {"company": "Wipro",        "metric": "Headcount", "value": 234054, "unit": "employees", "page": 105, "quote": "The number of permanent employees on the rolls of the Company as of March 31, 2024 ... was 234,054", "verified": true, "definition": "Permanent employees as of 31 March 2024"},
+    {"company": "HCLTech",      "metric": "Headcount", "value": 227481, "unit": "employees", "page": 15, "quote": "Employee metrics (Headcount) FY24 227,481", "verified": true, "definition": "Total headcount, FY24"},
 
-    {"company": "TechMahindra", "metric": "Attrition", "value": null, "unit": "%", "page": null, "quote": "", "verified": false, "definition": ""},
-    {"company": "Wipro",        "metric": "Attrition", "value": null, "unit": "%", "page": null, "quote": "", "verified": false, "definition": ""},
-    {"company": "HCLTech",      "metric": "Attrition", "value": null, "unit": "%", "page": null, "quote": "", "verified": false, "definition": ""}
+    {"company": "TechMahindra", "metric": "Attrition", "value": 10.0, "unit": "%", "page": 320, "quote": "The LTM IT attrition was 10.0% during the year as compared to 14.8% in the previous year.", "verified": true, "definition": "IT attrition, last twelve months"},
+    {"company": "Wipro",        "metric": "Attrition", "value": 14.2, "unit": "%", "page": 22, "quote": "Voluntary Attrition (excluding DOP) (%) ... 14.2 FY24", "verified": true, "definition": "Voluntary attrition, IT Services, excluding DOP, trailing twelve months"},
+    {"company": "HCLTech",      "metric": "Attrition", "value": 12.4, "unit": "%", "page": 7, "quote": "employee attrition rate came in at 12.4%, which is among the lowest in the industry.", "verified": true, "definition": "IT services voluntary attrition, LTM"}
   ]
 }

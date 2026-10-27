@@ -21,7 +21,7 @@ python -m src.ingest          # PDFs -> data/chunks.jsonl
 python -m src.index           # BM25 + embeddings -> data/index/
 python -m src.retrieve "What was Wipro attrition?"       # test retrieval
 python -m src.answer   "What was Wipro attrition?"       # test full answer
-python eval.py                # 6 answerable + 4 unanswerable checks
+python eval.py                # 14 answerable + 7 unanswerable checks
 streamlit run app.py          # the app
 ```
 
@@ -58,7 +58,7 @@ PDFs and indexes are gitignored because they're too large for the repo. Each mem
    1. If the best similarity is below `MIN_SCORE`, the app refuses without calling the LLM.
    2. Gemini (temperature 0) answers only from the retrieved chunks and returns `found=false` if they don't contain the answer.
    3. Cited chunk IDs must be among the retrieved chunks; if none are, the app refuses.
-5. **Compare:** chart values come from `data/metrics.json`. Gemini proposes each value with its page and quote, and a person verifies it against the PDF.
+5. **Compare:** chart values come from `data/metrics.json`. Each value was found in the report, recorded with its PDF page and exact quote (`data/key_facts.md`), and checked against that page. Where companies define a metric differently (e.g. EBIT margin vs IT Services operating margin), the app shows the definition next to the chart.
 
 **Page numbers** are 1-based PDF page indices (what a PDF viewer shows), not the page numbers printed in the report.
 

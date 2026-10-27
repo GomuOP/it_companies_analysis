@@ -23,21 +23,28 @@ HEADER_PATTERNS = [
 ]
 
 
+# Shifted HCLTech text uses \x03 for space and \x0f-\x1c for ",-./0-9", plus other low codes for
+# punctuation. \x07/\x08 are left out: elsewhere they are bullet glyphs, not shifted text.
+HCL_SHIFTED = re.compile(r"[\x03-\x06\x0b-\x1d]")
+HCL_LIGATURES = {"¿": "fi", "À": "fl", "ႇ": "ff", "ႈ": "ffi"}
+
+# Rupee symbol extracted as a stray glyph before amounts, e.g. "D 519,955 Mn" (TechM), "C 897,603" (Wipro)
+# A backtick is never part of a word, so it is replaced before any number; D/C only before amounts.
+RUPEE_GLYPH = {
+    "TechMahindra": re.compile(r"`\s?(?=\d)|(?<![A-Za-z0-9])D (?=\d{1,3}(?:,\d{2,3})+|\d+\.\d)"),
+    "Wipro": re.compile(r"`\s?(?=\d)|(?<![A-Za-z0-9])C (?=\d{1,3}(?:,\d{2,3})+|\d+\.\d)"),
+}
+
+
 def decode_hcl_span(text: str) -> str:
     """Fix HCLTech embedded font encoding artifact where characters are shifted by +29."""
-    if "\x03" not in text and not any(c in text for c in ["¿", "À", "ႇ"]):
-        return text
     decoded = []
     for c in text:
         code = ord(c)
         if code == 3:
             decoded.append(" ")
-        elif c == "¿":
-            decoded.append("fi")
-        elif c == "À":
-            decoded.append("fl")
-        elif c == "ႇ":
-            decoded.append("ff")
+        elif c in HCL_LIGATURES:
+            decoded.append(HCL_LIGATURES[c])
         elif 4 <= code <= 97:
             decoded.append(chr(code + 29))
         else:
@@ -48,22 +55,27 @@ def decode_hcl_span(text: str) -> str:
 def extract_page_text(page, company: str) -> str:
     """Extract page text, repairing custom font-encoding if in HCLTech."""
     if company == "HCLTech":
-        raw = page.get_text("text")
-        if "\x03" in raw or any(c in raw for c in ["¿", "À", "ႇ"]):
-            blocks = page.get_text("dict")["blocks"]
-            lines = []
-            for b in blocks:
-                if "lines" in b:
-                    for l in b["lines"]:
-                        line = "".join(decode_hcl_span(s["text"]) for s in l["spans"])
-                        lines.append(line)
-            return "\n".join(lines)
-    return page.get_text("text")
+        # Decide per line, not per page: shifted and normal text are mixed on the same page,
+        # and a shifted word on its own (e.g. "1DWLRQDO" = "National") has no control chars.
+        lines = []
+        for b in page.get_text("dict")["blocks"]:
+            for l in b.get("lines", []):
+                spans = [s["text"] for s in l["spans"]]
+                if any(HCL_SHIFTED.search(s) for s in spans):
+                    spans = [decode_hcl_span(s) if s.strip() else s for s in spans]
+                lines.append("".join(spans))
+        return "\n".join(lines)
+    text = page.get_text("text")
+    if company in RUPEE_GLYPH:
+        text = RUPEE_GLYPH[company].sub("₹", text)
+    return text
 
 
 def clean(text: str) -> str:
     # Normalise non-breaking / special spaces
     text = text.replace("\u00a0", " ").replace("\xa0", " ")
+    # Bullet / tab glyphs extracted as control characters
+    text = re.sub(r"[\x00-\x08\x0b-\x1f]", " ", text)
     # Strip running headers/footers
     filtered = []
     for line in text.split("\n"):
