@@ -22,18 +22,21 @@ COMPANIES = {
 }
 
 # chunking
-CHUNK_WORDS = 400          # ~550-600 tokens
-CHUNK_OVERLAP = 60
+CHUNK_WORDS = 300          # ~430 tokens; bge-small truncates at 512
+CHUNK_OVERLAP = 50
 
 # retrieval
 EMBED_MODEL = "BAAI/bge-small-en-v1.5"
 BGE_QUERY_PREFIX = "Represent this sentence for searching relevant passages: "
 TOP_K = 6                  # total chunks sent to the LLM
-TOP_K_PER_COMPANY = 3      # used when no company is named (comparison questions)
-MIN_SCORE = 0.55           # relevance gate on best cosine similarity - TUNE with eval.py
+TOP_K_PER_COMPANY = 5      # per company when a question covers several companies (comparisons)
+MIN_SCORE = 0.62           # relevance gate: answerable eval questions score 0.65-0.79, off-topic ~0.59
 
 # LLM
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
-GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
+GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-3.6-flash")
+# Tried in order when the main model is overloaded (503), rate-limited or times out
+GEMINI_FALLBACK_MODELS = ["gemini-3.5-flash", "gemini-3.8-flash"]
+GEMINI_TIMEOUT_S = 60
 
 NOT_FOUND = "Not found in the reports."
