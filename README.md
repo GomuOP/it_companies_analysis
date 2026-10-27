@@ -64,20 +64,11 @@ PDFs and indexes are gitignored because they're too large for the repo. Each mem
 
 ## Source register
 
-| Company | Report title | Fiscal year | URL | Downloaded on |
+| Company | Report title | Fiscal year |
 |---|---|---|---|---|
-| Tech Mahindra | Integrated Annual Report 2023-24 | FY2023-24 | _fill_ | _fill_ |
-| Wipro | Integrated Annual Report 2023-24 | FY2023-24 | _fill_ | _fill_ |
-| HCLTech | Annual Report 2023-24 | FY2023-24 | _fill_ | _fill_ |
+| Tech Mahindra | Integrated Annual Report 2023-24 | FY2023-24 |
+| Wipro | Integrated Annual Report 2023-24 | FY2023-24 | _fill_ |
+| HCLTech | Annual Report 2023-24 | FY2023-24 | _fill_ |
 
-## Team and contributions
 
-| Member | Owns | Contributions (3 sentences each) |
-|---|---|---|
-| A | `config.py`, `ingest.py`, `index.py`, PDFs | _fill at 3:45 pm_ |
-| B | `retrieve.py`, `answer.py`, `eval.py`, refusal tuning | _fill_ |
-| C | `metrics.json`, `propose_metrics.py`, `app.py`, docs | _fill_ |
 
-## Failed attempts
-
-See [FAILED.md](FAILED.md).
