@@ -67,7 +67,7 @@ PDFs and indexes are gitignored because they're too large for the repo. Each mem
 | Company | Report title | Fiscal year | URL | Downloaded on |
 |---|---|---|---|---|
 | Tech Mahindra | Integrated Annual Report 2023-24 | FY2023-24 | _fill_ | _fill_ |
-| Wipro | Annual Report 2023-24 | FY2023-24 | _fill_ | _fill_ |
+| Wipro | Integrated Annual Report 2023-24 | FY2023-24 | _fill_ | _fill_ |
 | HCLTech | Annual Report 2023-24 | FY2023-24 | _fill_ | _fill_ |
 
 ## Team and contributions
