@@ -1,0 +1,11 @@
+.env
+__pycache__/
+*.pyc
+.venv/
+venv/
+# large / generated files - each member regenerates locally
+data/pdfs/*.pdf
+data/index/*
+!data/index/.gitkeep
+data/chunks.jsonl
+.DS_Store
