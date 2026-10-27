@@ -25,6 +25,7 @@ def build():
     chunks = load_chunks()
     print(f"Loaded {len(chunks)} chunks")
 
+    INDEX_DIR.mkdir(parents=True, exist_ok=True)
     bm25 = BM25Okapi([tokenize(c["text"]) for c in chunks])
     with open(INDEX_DIR / "bm25.pkl", "wb") as f:
         pickle.dump(bm25, f)
