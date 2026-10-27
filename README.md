@@ -2,7 +2,7 @@
 
 HCLTech AI Hackathon, IIT Gandhinagar. Use Case 2: IT Companies in India.
 
-This project compares the FY2025-26 annual reports of **TCS, Infosys and HCLTech** and answers questions **only from those reports**. Every answer includes a page citation. When the reports don't contain the answer, the app replies "Not found in the reports."
+This project compares the FY2023-24 annual reports of **Tech Mahindra, Wipro and HCLTech** and answers questions **only from those reports**. Every answer includes a page citation. When the reports don't contain the answer, the app replies "Not found in the reports."
 
 ![Architecture](docs/architecture.png)
 
@@ -15,12 +15,12 @@ pip install -r requirements.txt
 cp .env.example .env                                     # then paste your GEMINI_API_KEY
 
 # 1. Put the PDFs in data/pdfs/ with these exact names:
-#    tcs_fy26.pdf   infosys_fy26.pdf   hcltech_fy26.pdf
+#    techmahindra_fy24.pdf   wipro_fy24.pdf   hcltech_fy24.pdf
 
 python -m src.ingest          # PDFs -> data/chunks.jsonl
 python -m src.index           # BM25 + embeddings -> data/index/
-python -m src.retrieve "What was Infosys attrition?"     # test retrieval
-python -m src.answer   "What was Infosys attrition?"     # test full answer
+python -m src.retrieve "What was Wipro attrition?"       # test retrieval
+python -m src.answer   "What was Wipro attrition?"       # test full answer
 python eval.py                # 6 answerable + 4 unanswerable checks
 streamlit run app.py          # the app
 ```
@@ -66,16 +66,16 @@ PDFs and indexes are gitignored because they're too large for the repo. Each mem
 
 | Company | Report title | Fiscal year | URL | Downloaded on |
 |---|---|---|---|---|
-| TCS | Integrated Annual Report 2025-26 | FY2025-26 | _fill_ | 27-Oct-2026 |
-| Infosys | Annual Report 2025-26 | FY2025-26 | _fill_ | 27-Oct-2026 |
-| HCLTech | Annual Report 2025-26 | FY2025-26 | _fill_ | 27-Oct-2026 |
+| Tech Mahindra | Integrated Annual Report 2023-24 | FY2023-24 | _fill_ | _fill_ |
+| Wipro | Annual Report 2023-24 | FY2023-24 | _fill_ | _fill_ |
+| HCLTech | Annual Report 2023-24 | FY2023-24 | _fill_ | _fill_ |
 
 ## Team and contributions
 
 | Member | Owns | Contributions (3 sentences each) |
 |---|---|---|
-| A | `ingest.py`, `index.py`, `retrieve.py` | _fill at 3:45 pm_ |
-| B | `answer.py`, `eval.py`, refusal tuning | _fill_ |
+| A | `config.py`, `ingest.py`, `index.py`, PDFs | _fill at 3:45 pm_ |
+| B | `retrieve.py`, `answer.py`, `eval.py`, refusal tuning | _fill_ |
 | C | `metrics.json`, `propose_metrics.py`, `app.py`, docs | _fill_ |
 
 ## Failed attempts

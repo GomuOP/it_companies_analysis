@@ -8,18 +8,18 @@ from src.answer import answer
 
 ANSWERABLE = [
     # (question, company, expected_page or None if not yet known)
-    ("What was the employee attrition rate at Infosys in FY2025-26?", "Infosys", None),
-    ("What was TCS's total headcount at the end of FY2025-26?", "TCS", None),
-    ("What was HCLTech's consolidated revenue for FY2025-26?", "HCLTech", None),
-    ("What does TCS say about its investments in AI?", "TCS", None),
-    ("What are the key risks Infosys highlights?", "Infosys", None),
+    ("What was the employee attrition rate at Wipro in FY2023-24?", "Wipro", None),
+    ("What was Tech Mahindra's total headcount at the end of FY2023-24?", "TechMahindra", None),
+    ("What was HCLTech's consolidated revenue for FY2023-24?", "HCLTech", None),
+    ("What does Tech Mahindra say about its investments in AI?", "TechMahindra", None),
+    ("What are the key risks Wipro highlights?", "Wipro", None),
     ("Which geography contributes the most revenue for HCLTech?", "HCLTech", None),
 ]
 
 UNANSWERABLE = [
-    "What will Infosys's share price be next year?",
-    "What was Accenture's revenue in FY2025-26?",
-    "What is the favourite food of the TCS CEO?",
+    "What will Wipro's share price be next year?",
+    "What was Accenture's revenue in FY2023-24?",
+    "What is the favourite food of the Tech Mahindra CEO?",
     "Should I invest in HCLTech?",
 ]
 

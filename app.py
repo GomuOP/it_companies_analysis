@@ -14,7 +14,7 @@ from src.config import COMPANIES, METRICS_PATH, PDF_DIR, FISCAL_YEAR
 
 st.set_page_config(page_title="Annual Report Intelligence", layout="wide")
 st.title("Annual Report Intelligence")
-st.caption(f"TCS · Infosys · HCLTech · Annual Reports {FISCAL_YEAR}. Answers come only from these reports, with page citations.")
+st.caption(f"Tech Mahindra · Wipro · HCLTech · Annual Reports {FISCAL_YEAR}. Answers come only from these reports, with page citations.")
 
 
 @st.cache_data
@@ -60,7 +60,7 @@ with ask_tab:
     from src.answer import answer
 
     q = st.text_input("Ask a question about the three annual reports",
-                      placeholder="e.g. What was the attrition rate at Infosys in FY2025-26?")
+                      placeholder="e.g. What was the attrition rate at Wipro in FY2023-24?")
     if q:
         with st.spinner("Searching the reports..."):
             r = answer(q)

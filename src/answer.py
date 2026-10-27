@@ -1,7 +1,7 @@
 """Step 6: relevance gate -> Gemini (context-only, JSON) -> citation validation.
 
 Owner: Member B
-Quick test: python -m src.answer "What was Infosys attrition in FY2025-26?"
+Quick test: python -m src.answer "What was Wipro attrition in FY2023-24?"
 """
 import json
 import sys
@@ -79,7 +79,7 @@ def answer(question: str) -> dict:
 
 
 if __name__ == "__main__":
-    q = " ".join(sys.argv[1:]) or "What was the attrition rate at Infosys?"
+    q = " ".join(sys.argv[1:]) or "What was the attrition rate at Wipro?"
     r = answer(q)
     print(r["answer"])
     for c in r["citations"]:

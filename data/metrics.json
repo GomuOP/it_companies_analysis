@@ -1,22 +1,22 @@
 {
   "_note": "Hand-verified values only. Fill from scripts/propose_metrics.py output AFTER checking each page in the PDF. Set verified=true once checked.",
-  "fy": "FY2025-26",
+  "fy": "FY2023-24",
   "basis": "Consolidated",
   "metrics": [
-    {"company": "TCS",     "metric": "Revenue", "value": null, "unit": "INR crore", "page": null, "quote": "", "verified": false},
-    {"company": "Infosys", "metric": "Revenue", "value": null, "unit": "INR crore", "page": null, "quote": "", "verified": false},
-    {"company": "HCLTech", "metric": "Revenue", "value": null, "unit": "INR crore", "page": null, "quote": "", "verified": false},
+    {"company": "TechMahindra", "metric": "Revenue", "value": null, "unit": "INR crore", "page": null, "quote": "", "verified": false},
+    {"company": "Wipro",        "metric": "Revenue", "value": null, "unit": "INR crore", "page": null, "quote": "", "verified": false},
+    {"company": "HCLTech",      "metric": "Revenue", "value": null, "unit": "INR crore", "page": null, "quote": "", "verified": false},
 
-    {"company": "TCS",     "metric": "Operating margin", "value": null, "unit": "%", "page": null, "quote": "", "verified": false},
-    {"company": "Infosys", "metric": "Operating margin", "value": null, "unit": "%", "page": null, "quote": "", "verified": false},
-    {"company": "HCLTech", "metric": "Operating margin", "value": null, "unit": "%", "page": null, "quote": "", "verified": false},
+    {"company": "TechMahindra", "metric": "Operating margin", "value": null, "unit": "%", "page": null, "quote": "", "verified": false},
+    {"company": "Wipro",        "metric": "Operating margin", "value": null, "unit": "%", "page": null, "quote": "", "verified": false},
+    {"company": "HCLTech",      "metric": "Operating margin", "value": null, "unit": "%", "page": null, "quote": "", "verified": false},
 
-    {"company": "TCS",     "metric": "Headcount", "value": null, "unit": "employees", "page": null, "quote": "", "verified": false},
-    {"company": "Infosys", "metric": "Headcount", "value": null, "unit": "employees", "page": null, "quote": "", "verified": false},
-    {"company": "HCLTech", "metric": "Headcount", "value": null, "unit": "employees", "page": null, "quote": "", "verified": false},
+    {"company": "TechMahindra", "metric": "Headcount", "value": null, "unit": "employees", "page": null, "quote": "", "verified": false},
+    {"company": "Wipro",        "metric": "Headcount", "value": null, "unit": "employees", "page": null, "quote": "", "verified": false},
+    {"company": "HCLTech",      "metric": "Headcount", "value": null, "unit": "employees", "page": null, "quote": "", "verified": false},
 
-    {"company": "TCS",     "metric": "Attrition", "value": null, "unit": "%", "page": null, "quote": "", "verified": false, "definition": ""},
-    {"company": "Infosys", "metric": "Attrition", "value": null, "unit": "%", "page": null, "quote": "", "verified": false, "definition": ""},
-    {"company": "HCLTech", "metric": "Attrition", "value": null, "unit": "%", "page": null, "quote": "", "verified": false, "definition": ""}
+    {"company": "TechMahindra", "metric": "Attrition", "value": null, "unit": "%", "page": null, "quote": "", "verified": false, "definition": ""},
+    {"company": "Wipro",        "metric": "Attrition", "value": null, "unit": "%", "page": null, "quote": "", "verified": false, "definition": ""},
+    {"company": "HCLTech",      "metric": "Attrition", "value": null, "unit": "%", "page": null, "quote": "", "verified": false, "definition": ""}
   ]
 }

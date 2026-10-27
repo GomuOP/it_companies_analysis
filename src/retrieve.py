@@ -1,7 +1,7 @@
 """Step 5: hybrid retrieval (BM25 + vector, reciprocal-rank fusion) + company filter.
 
-Owner: Member A
-Quick test: python -m src.retrieve "What was Infosys attrition?"
+Owner: Member B
+Quick test: python -m src.retrieve "What was Wipro attrition?"
 """
 import pickle
 import sys
@@ -64,4 +64,4 @@ def search(question: str):
 if __name__ == "__main__":
     q = " ".join(sys.argv[1:]) or "What was the attrition rate?"
     for c in search(q):
-        print(f"{c['cosine']:.3f}  {c['company']:8s} p.{c['page']:<4d} {c['text'][:110]}...")
+        print(f"{c['cosine']:.3f}  {c['company']:12s} p.{c['page']:<4d} {c['text'][:110]}...")

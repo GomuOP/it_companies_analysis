@@ -12,13 +12,13 @@ INDEX_DIR = DATA / "index"
 CHUNKS_PATH = DATA / "chunks.jsonl"
 METRICS_PATH = DATA / "metrics.json"
 
-FISCAL_YEAR = "FY2025-26"
+FISCAL_YEAR = "FY2023-24"
 
 # file name in data/pdfs  ->  display name + aliases used to detect the company in a question
 COMPANIES = {
-    "TCS":     {"file": "tcs_fy26.pdf",     "aliases": ["tcs", "tata consultancy"]},
-    "Infosys": {"file": "infosys_fy26.pdf", "aliases": ["infosys", "infy"]},
-    "HCLTech": {"file": "hcltech_fy26.pdf", "aliases": ["hcl", "hcltech", "hcl tech", "hcl technologies"]},
+    "TechMahindra": {"file": "techmahindra_fy24.pdf", "aliases": ["tech mahindra", "techmahindra", "techm", "tech m", "mahindra"]},
+    "Wipro":        {"file": "wipro_fy24.pdf",        "aliases": ["wipro"]},
+    "HCLTech":      {"file": "hcltech_fy24.pdf",      "aliases": ["hcl", "hcltech", "hcl tech", "hcl technologies"]},
 }
 
 # chunking
